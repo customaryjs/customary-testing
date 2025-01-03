@@ -1,0 +1,27 @@
+{
+  "include": ["src/**/*"],
+  "compilerOptions": {
+    "rootDir": "src",
+    "paths": {
+      "#customary": ["./node_modules/customary/src/index.ts"],
+      "#customary-testing/*": ["./src/*"],
+      "#customary/*": ["./node_modules/customary/src/*"], // live compile of this!!
+      "chai/*": ["./node_modules/chai/*"],
+      "mocha/*": ["./node_modules/mocha/*"]
+    },
+    // ---- BEGIN lit decorators: @property @state @query
+    // https://lit.dev/docs/components/decorators/#decorators-typescript
+    "experimentalDecorators": true,
+    "useDefineForClassFields": false,
+    // ---- END lit decorators: @property @state @query
+    // ---- CODING STANDARDS TYPICAL FOR ALL PROJECTS START HERE ----
+    "allowJs": false,
+    "module": "esnext",
+    "moduleResolution": "node",
+    "noImplicitAny": true,
+    "noImplicitReturns": true,
+    "sourceMap": true,
+    "strict": true,
+    "target": "es2022",
+  }
+}

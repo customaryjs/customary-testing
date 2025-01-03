@@ -1,0 +1,96 @@
+{
+  "name": "customary-testing",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "// ---- public ---- //": "//",
+    "start": "wireit",
+    "test-dist": "wireit",
+    "dist": "wireit",
+    "dev": "wireit",
+    "test-dev": "wireit",
+    "clean": "wireit",
+    "// ---- private ---- //": "//",
+    "dist:*": "wireit",
+    "dist:development": "wireit",
+    "compile-watch": "wireit",
+    "compile": "wireit"
+  },
+  "wireit": {
+    "start": {
+      "command": "npm run test-dist",
+      "service": true,
+      "dependencies": ["dist"]
+    },
+    "test-dist": {
+      "command": "npx web-dev-server --watch --root-dir=.dist/development --open=/test.html?run",
+      "service": true
+    },
+    "dist": {
+      "command": "npm run dist:*",
+      "dependencies": ["compile-from-scratch"]
+    },
+    "dev": {
+      "command": "npm run test-dev",
+      "service": true,
+      "dependencies": ["compile-watch"]
+    },
+    "test-dev": {
+      "command": "npx web-dev-server --watch --open=web/test.html?run",
+      "service": true
+    },
+    "clean": {
+      "dependencies": ["clean:dist", "clean:src"]
+    },
+    "compile-from-scratch": {
+      "command": "npm run compile",
+      "dependencies": ["dist-dependency:*", "clean"]
+    },
+    "clean:dist": {"command": "rimraf .dist"},
+    "clean:src": {"command": "rimraf --glob web/**/*.{d.ts,js.map,js}"},
+    "dist:*": {
+      "dependencies": ["dist:development"]
+    },
+    "dist:development": {"command": "npx webpack"},
+    "compile-watch": {
+      "command": "tsc --build --pretty --verbose --watch",
+      "service": true
+    },
+    "compile": {
+      "command": "tsc --build --pretty --verbose"
+    },
+    "dist-dependency:*": {
+      "dependencies": ["../customary:dist"]
+    }
+  },
+  "dependencies": {
+    "chai": "^5.1.1",
+    "customary": "file:../customary",
+    "mocha": "^10.7.3"
+  },
+  "devDependencies": {
+    "@types/chai": "^4.3.19",
+    "@types/mocha": "^10.0.8",
+    "@types/node": "^20.16.5",
+    "@web/dev-server": "^0.4.6",
+    "copy-webpack-plugin": "^12.0.2",
+    "remove-files-webpack-plugin": "^1.5.0",
+    "replace-in-file-webpack-plugin": "^1.0.6",
+    "rimraf": "^6.0.1",
+    "typescript": "^5.6.2",
+    "webpack": "^5.96.1",
+    "webpack-cli": "^5.1.4",
+    "wireit": "^0.14.9"
+  },
+  "imports": {
+    "#customary-testing/*.js": "./src/*.ts",
+    "#test-runner-customary/*.js": "./src/test-runner-customary/*.ts",
+    "#customary/*.js": "./node_modules/customary/src/*.ts"
+  },
+  "engines": {
+    "node": "22.11.0"
+  },
+  "license": "MIT",
+  "author": "Andre de Oliveira"
+}

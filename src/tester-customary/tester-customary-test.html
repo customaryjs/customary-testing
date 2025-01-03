@@ -1,0 +1,16 @@
+<tester-customary title="Customary Testing"></tester-customary>
+
+<script type="importmap">{"imports": {
+    "mocha": "../../node_modules/mocha/mocha.js",
+    "mocha.css": "../../node_modules/mocha/mocha.css",
+    "#customary-testing/": "../",
+    "#customary": "../../node_modules/customary/web/_script/now.js",
+    "#customary/": "../../node_modules/customary/web/_script/",
+    "#customary/lit": "../../node_modules/customary/.dist/bundled/customary-library.mjs"
+}}</script>
+<script type="module">
+    import {Customary} from '#customary';
+    import {TesterCustomary} from "#customary-testing/tester-customary/tester-customary.js";
+    Customary.define(TesterCustomary);
+</script>
+<script type="module">import '#customary';</script>
