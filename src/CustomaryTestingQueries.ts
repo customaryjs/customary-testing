@@ -1,14 +1,17 @@
+import {CustomaryTesting} from "#customary-testing";
+
 export class CustomaryTestingQueries {
 
+    static matchesTextContent(element: Element, expected: string): boolean {
+        return CustomaryTesting.allTextContent(element) === expected;
+    }
+
     static findByTextContent(container: ParentNode, expected: string, {selector}:{selector: string}) {
-        const elements= querySelectorAll(container, selector);
+        const elements = querySelectorAll(container, selector);
         for (const element of elements) {
-            const textContentArray: string[] = collectAllTextContent(element);
-            const textContent = textContentArray
-                .map(s => {const t = s.trim(); return t.length ? t : s})
-                .join('')
-                .trim();
-            if (textContent === expected) return element;
+            if (this.matchesTextContent(element, expected)) {
+                return element;
+            }
         }
         throw new Error(`No element matching ${selector} has textContent ${expected}`);
     }
@@ -22,7 +25,6 @@ export class CustomaryTestingQueries {
         }
         throw new Error(`No element matching ${selector} has class ${expected}`);
     }
-
 }
 
 function querySelectorAll(container: ParentNode, selector: string) {
@@ -31,13 +33,3 @@ function querySelectorAll(container: ParentNode, selector: string) {
     return elements;
 }
 
-function collectAllTextContent(node: Node): string[] {
-    if (node.nodeType === Node.COMMENT_NODE) return [];
-    if ((node as Element).tagName === 'SCRIPT') return [];
-    if ((node as Element).shadowRoot) return collectAllTextContent((node as Element).shadowRoot!);
-    const textContent = node.textContent?.replace(/\s+/g, ' ');
-    if (textContent?.trim?.().length) return [textContent];
-    if (node.hasChildNodes()) return Array.from(node.childNodes).flatMap(child => collectAllTextContent(child));
-    if (textContent === ' ') return [textContent];
-    return [];
-}

@@ -5,6 +5,7 @@
     "paths": {
       "#customary": ["./node_modules/customary/src/index.ts"],
       "#customary-testing/*": ["./src/*"],
+      "#customary-testing": ["./src/index.ts"],
       "#customary/*": ["./node_modules/customary/src/*"], // live compile of this!!
       "chai/*": ["./node_modules/chai/*"],
       "mocha/*": ["./node_modules/mocha/*"]
