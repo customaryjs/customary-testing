@@ -4,9 +4,11 @@ export class CustomaryTesting {
 				?? (() => {throw new Error(`Blocked?! ${url}`)})();
 	}
 
-	static querySelector(selectors: string, window: Window): Element;
-	static querySelector(selectors: string, element: Element): Element;
-	static querySelector(selectors: string, target: Window | Element): Element {
+	static querySelector<T extends Element>(selectors: string, window: Window): T;
+	static querySelector<T extends Element>(selectors: string, element: Element): T;
+	static querySelector<T extends Element>(
+			selectors: string, target: Window | Element
+	): T {
 		const parentNode: ParentNode =
 				(target as Window).document ?? (target as Element).shadowRoot ?? target;
 
