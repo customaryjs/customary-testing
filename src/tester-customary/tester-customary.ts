@@ -3,8 +3,8 @@ import 'mocha';
 
 export class TesterCustomary extends CustomaryElement {
 	static customary: CustomaryDeclaration<TesterCustomary> = {
+		name: 'tester-customary',
 		config: {
-			name: 'tester-customary',
 			state: [
 					'run_requested', 'import_tests_callback', 'mocha_css_location',
 					'mocha_stats_placeholder_hidden'
