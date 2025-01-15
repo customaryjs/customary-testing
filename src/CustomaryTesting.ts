@@ -4,16 +4,23 @@ export class CustomaryTesting {
 				?? (() => {throw new Error(`Blocked?! ${url}`)})();
 	}
 
-	static querySelector<T extends Element>(selectors: string, window: Window): T;
-	static querySelector<T extends Element>(selectors: string, element: Element): T;
+	static q(target: Window | Element): ParentNode {
+		return (target as Window).document ?? (target as Element).shadowRoot ?? target;
+	}
+
 	static querySelector<T extends Element>(
 			selectors: string, target: Window | Element
 	): T {
-		const parentNode: ParentNode =
-				(target as Window).document ?? (target as Element).shadowRoot ?? target;
-
-		return parentNode.querySelector(selectors)
+		return CustomaryTesting.q(target).querySelector(selectors)
 			?? (()=>{throw new Error(`No element matching ${selectors}`)})();
+	}
+
+	static querySelectorAll<T extends Element>(
+			selectors: string, target: Window | Element
+	): NodeListOf<T> {
+		const list = CustomaryTesting.q(target).querySelectorAll(selectors);
+		return list.length > 0 ? list as NodeListOf<T>
+				: (()=>{throw new Error(`No element matching ${selectors}`)})();
 	}
 
 	static allTextContent(node: Node) {
