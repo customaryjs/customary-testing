@@ -53,12 +53,7 @@
       "command": "rimraf --glob src/**/*.{d.ts,js.map,js} --glob tsconfig.tsbuildinfo"
     },
     "dev": {
-      "command": "npm run test:in-src",
-      "service": true,
-      "dependencies": ["compile:watch"]
-    },
-    "test:in-src": {
-      "command": "npx web-dev-server --watch --open=src/test.html",
+      "command": "npm run compile:watch",
       "service": true
     },
     "compile:watch": {
