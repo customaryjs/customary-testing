@@ -1,4 +1,4 @@
-import {CustomaryDeclaration, CustomaryElement} from "#customary";
+import {Customary, CustomaryDeclaration, CustomaryElement} from "#customary";
 import 'mocha';
 
 export class TesterCustomary extends CustomaryElement {
@@ -81,3 +81,5 @@ export class TesterCustomary extends CustomaryElement {
 		return cssStyleSheet.replace(text);
 	}
 }
+
+Customary.declare(TesterCustomary);
