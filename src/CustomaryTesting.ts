@@ -4,8 +4,28 @@ export class CustomaryTesting {
 				?? (() => {throw new Error(`Blocked?! ${url}`)})();
 	}
 
-	static q(target: Window | Element): ParentNode {
-		return (target as Window).document ?? (target as Element).shadowRoot ?? target;
+	static spot(
+			needle: string,
+			haystack: Window | Element
+	): Node {
+		const parentNode: ParentNode = this.q(haystack);
+		return this.spot_(needle, parentNode)
+				?? (() => {throw new Error(`No "${needle}" spotted`)})();
+	}
+
+	private static spot_(
+			needle: string,
+			node: Node
+	): Node | undefined {
+		const textContent = this.allTextContent(node);
+		if (textContent === needle) {
+			return node;
+		}
+		for (const child of node.childNodes) {
+			const found = this.spot_(needle, child);
+			if (found) return found;
+		}
+		return undefined;
 	}
 
 	static querySelector<T extends Element>(
@@ -19,7 +39,8 @@ export class CustomaryTesting {
 			selectors: string, target: Window | Element
 	): NodeListOf<T> {
 		const list = CustomaryTesting.q(target).querySelectorAll(selectors);
-		return list.length > 0 ? list as NodeListOf<T>
+		return list.length > 0
+				? list as NodeListOf<T>
 				: (()=>{throw new Error(`No element matching ${selectors}`)})();
 	}
 
@@ -47,6 +68,10 @@ export class CustomaryTesting {
 		input.focus();
 		input.click();
 		input.dispatchEvent(new Event("input"));
+	}
+
+	static q(target: Window | Element): ParentNode {
+		return (target as Window).document ?? (target as Element).shadowRoot ?? target;
 	}
 }
 
