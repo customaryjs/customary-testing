@@ -90,9 +90,6 @@
     "#test-runner-customary/*.js": "./src/test-runner-customary/*.ts",
     "#customary/*.js": "./node_modules/customary/src/*.ts"
   },
-  "engines": {
-    "node": "22.11.0"
-  },
   "license": "MIT",
   "author": "Andre de Oliveira"
 }
