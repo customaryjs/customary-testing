@@ -25,7 +25,9 @@
     "test": {
       "command": "npm run test:in-dist",
       "service": true,
-      "dependencies": ["dist"]
+      "dependencies": [
+        "dist"
+      ]
     },
     "test:in-dist": {
       "command": "npx web-dev-server --watch --root-dir=.dist/development --open=/test.html",
@@ -33,20 +35,28 @@
     },
     "dist": {
       "command": "npm run dist:library",
-      "dependencies": ["build"]
+      "dependencies": [
+        "build"
+      ]
     },
     "dist:library": {
       "command": "npx webpack"
     },
     "build": {
       "command": "npm run compile",
-      "dependencies": ["clean", "dist:participants"]
+      "dependencies": [
+        "clean",
+        "dist:participants"
+      ]
     },
     "compile": {
       "command": "tsc --build --pretty --verbose"
     },
     "clean": {
-      "dependencies": ["clean:dist", "clean:src"]
+      "dependencies": [
+        "clean:dist",
+        "clean:src"
+      ]
     },
     "clean:dist": {
       "command": "rimraf .dist"
@@ -64,18 +74,20 @@
     },
     "dist:participants": {
       "dependencies": [
-        "../customary:dist"
+        "../customary:dist",
+        "../customary-testing-mocha-runner:dist"
       ]
     }
   },
   "dependencies": {
     "chai": "^5.1.1",
     "customary": "file:../customary",
-    "mocha": "^10.7.3"
+    "mocha": "^11.7.5",
+    "mocha-json-serialize-reporter": "^1.7.0"
   },
   "devDependencies": {
     "@types/chai": "^4.3.19",
-    "@types/mocha": "^10.0.8",
+    "@types/mocha": "^10.0.10",
     "@types/node": "^20.16.5",
     "@web/dev-server": "^0.4.6",
     "copy-webpack-plugin": "^12.0.2",
@@ -83,7 +95,7 @@
     "replace-in-file-webpack-plugin": "^1.0.6",
     "rimraf": "^6.0.1",
     "typescript": "^5.6.2",
-    "webpack": "^5.96.1",
+    "webpack": "^5.105.3",
     "webpack-cli": "^5.1.4",
     "wireit": "^0.14.9"
   },
