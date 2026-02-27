@@ -17,7 +17,9 @@
     "compile:watch": "wireit",
     "// ---- command ---- //": "//",
     "dist:library": "wireit",
-    "compile": "wireit"
+    "compile": "wireit",
+    "// ---- workaround ---- //": "//",
+    "fix-mocha-html-reporter": "./package-json-fix-mocha-html-reporter.sh"
   },
   "wireit": {
     "test": {
