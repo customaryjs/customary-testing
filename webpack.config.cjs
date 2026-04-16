@@ -17,7 +17,7 @@ module.exports = {
                 },
                 {
                     context: 'node_modules',
-                    from: 'chai/chai.js',
+                    from: 'chai/index.js',
                     to: 'node_modules/chai/',
                 },
                 {
