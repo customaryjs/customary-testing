@@ -12,8 +12,8 @@ module.exports = {
                     from: 'src/',
                 },
                 {
-                    from: 'node_modules/customary/.dist/bundled/customary.mjs',
-                    to: 'node_modules/customary/.dist/bundled/',
+                    from: 'node_modules/customary/.dist/customary.mjs',
+                    to: 'node_modules/customary/.dist/',
                 },
                 {
                     context: 'node_modules',
